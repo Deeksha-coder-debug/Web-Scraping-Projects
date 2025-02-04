@@ -1,0 +1,14 @@
+import requests
+from bs4 import BeautifulSoup
+
+url="https://www.geeksforgeeks.org/working-of-domain-name-system-dns-server/" 
+response=requests.get(url)
+
+if response.status_code == 200:
+    soup=BeautifulSoup(response.content,'html.parser')
+    articles=soup.find_all('div',class_='text')
+    for article in articles:
+        title = article.get_text()
+        print(title)
+else:
+    print(f"Failed to retrieve the webpage. Status code: {response.status_code}")
